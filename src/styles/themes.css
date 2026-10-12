@@ -1,0 +1,119 @@
+/*
+ * Themes are plain CSS custom properties switched by <html data-theme="…">.
+ * Untyped text keeps at least ~4.5:1 contrast with the background so the
+ * passage stays readable; errors are also marked with underlines, not color alone.
+ */
+:root,
+[data-theme='midnight'] {
+  --tf-scheme: dark;
+  --tf-bg: #0f1117;
+  --tf-surface: #161922;
+  --tf-surface-2: #1d212c;
+  --tf-line: #272c39;
+  --tf-text: #e8e9ee;
+  --tf-sub: #8a91a8;
+  --tf-untyped: #7d849b;
+  --tf-correct: #eef0f6;
+  --tf-accent: #7c9cff;
+  --tf-accent-fg: #0f1117;
+  --tf-caret: #7c9cff;
+  --tf-error: #ff6b81;
+  --tf-error-extra: #c4566a;
+  --tf-error-bg: rgb(255 107 129 / 0.1);
+  --tf-good: #6ee7a8;
+}
+
+[data-theme='light'] {
+  --tf-scheme: light;
+  --tf-bg: #f7f7f5;
+  --tf-surface: #ffffff;
+  --tf-surface-2: #f0f0ed;
+  --tf-line: #e3e3de;
+  --tf-text: #1f2328;
+  --tf-sub: #646a73;
+  --tf-untyped: #6a7079;
+  --tf-correct: #111418;
+  --tf-accent: #3b5bdb;
+  --tf-accent-fg: #ffffff;
+  --tf-caret: #3b5bdb;
+  --tf-error: #d1264f;
+  --tf-error-extra: #a8324f;
+  --tf-error-bg: rgb(209 38 79 / 0.08);
+  --tf-good: #1f8a52;
+}
+
+[data-theme='ocean'] {
+  --tf-scheme: dark;
+  --tf-bg: #0b1a2b;
+  --tf-surface: #10233a;
+  --tf-surface-2: #142b46;
+  --tf-line: #1d3654;
+  --tf-text: #d8e9f5;
+  --tf-sub: #86a6c2;
+  --tf-untyped: #7896b2;
+  --tf-correct: #eaf6ff;
+  --tf-accent: #4fd1c5;
+  --tf-accent-fg: #0b1a2b;
+  --tf-caret: #4fd1c5;
+  --tf-error: #ff7a90;
+  --tf-error-extra: #d06178;
+  --tf-error-bg: rgb(255 122 144 / 0.12);
+  --tf-good: #4fd1c5;
+}
+
+[data-theme='forest'] {
+  --tf-scheme: dark;
+  --tf-bg: #111a14;
+  --tf-surface: #17241b;
+  --tf-surface-2: #1d2d22;
+  --tf-line: #263a2c;
+  --tf-text: #dfe9df;
+  --tf-sub: #8aa590;
+  --tf-untyped: #7d977f;
+  --tf-correct: #f0f7ef;
+  --tf-accent: #8fd18a;
+  --tf-accent-fg: #111a14;
+  --tf-caret: #8fd18a;
+  --tf-error: #f2777a;
+  --tf-error-extra: #c45d61;
+  --tf-error-bg: rgb(242 119 122 / 0.12);
+  --tf-good: #8fd18a;
+}
+
+[data-theme='sepia'] {
+  --tf-scheme: light;
+  --tf-bg: #f3ead8;
+  --tf-surface: #fbf5e9;
+  --tf-surface-2: #ece1ca;
+  --tf-line: #e0d2b5;
+  --tf-text: #3b2f22;
+  --tf-sub: #6f5c42;
+  --tf-untyped: #6f5c42;
+  --tf-correct: #2a2018;
+  --tf-accent: #93501d;
+  --tf-accent-fg: #fbf5e9;
+  --tf-caret: #93501d;
+  --tf-error: #b8322a;
+  --tf-error-extra: #8f3a2f;
+  --tf-error-bg: rgb(184 50 42 / 0.1);
+  --tf-good: #4f7a35;
+}
+
+[data-theme='contrast'] {
+  --tf-scheme: dark;
+  --tf-bg: #000000;
+  --tf-surface: #0b0b0b;
+  --tf-surface-2: #161616;
+  --tf-line: #5a5a5a;
+  --tf-text: #ffffff;
+  --tf-sub: #d0d0d0;
+  --tf-untyped: #a8a8a8;
+  --tf-correct: #ffffff;
+  --tf-accent: #ffd400;
+  --tf-accent-fg: #000000;
+  --tf-caret: #ffd400;
+  --tf-error: #ff5c5c;
+  --tf-error-extra: #ff9a9a;
+  --tf-error-bg: rgb(255 92 92 / 0.22);
+  --tf-good: #5cff9d;
+}

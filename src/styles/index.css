@@ -1,0 +1,212 @@
+@import 'tailwindcss';
+@import './themes.css';
+
+@theme inline {
+  --color-bg: var(--tf-bg);
+  --color-surface: var(--tf-surface);
+  --color-surface-2: var(--tf-surface-2);
+  --color-line: var(--tf-line);
+  --color-text: var(--tf-text);
+  --color-sub: var(--tf-sub);
+  --color-accent: var(--tf-accent);
+  --color-accent-fg: var(--tf-accent-fg);
+  --color-error: var(--tf-error);
+  --color-good: var(--tf-good);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'JetBrains Mono', 'Roboto Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: var(--tf-scheme);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    min-height: 100dvh;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--tf-accent) 35%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--tf-accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* ---------------------------------------------------------------- typing */
+
+.tf-text {
+  font-family: var(--font-mono);
+  white-space: pre-wrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  font-variant-ligatures: none;
+  tab-size: 4;
+}
+.tf-word {
+  display: inline;
+}
+.tf-c0 {
+  color: var(--tf-untyped);
+}
+.tf-c1,
+.tf-c4 {
+  color: var(--tf-correct);
+}
+.tf-c2 {
+  color: var(--tf-error);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+  background: var(--tf-error-bg);
+  border-radius: 2px;
+}
+.tf-c3 {
+  color: var(--tf-untyped);
+  text-decoration: underline dotted var(--tf-error);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+.tf-extra {
+  color: var(--tf-error-extra);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+.tf-nl {
+  opacity: 0.55;
+  font-size: 0.7em;
+}
+.tf-c1.tf-nl,
+.tf-c4.tf-nl {
+  opacity: 0.35;
+}
+
+.tf-caret {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  background: var(--tf-caret);
+  border-radius: 2px;
+  will-change: transform;
+}
+.tf-caret[data-style='line'] {
+  width: 2.5px;
+}
+.tf-caret[data-style='block'] {
+  width: 1ch;
+  opacity: 0.38;
+}
+.tf-caret[data-style='underline'] {
+  width: 1ch;
+  height: 3px !important;
+}
+.tf-caret[data-smooth='true'] {
+  transition: transform 95ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.tf-caret[data-blink='true'] {
+  animation: tf-blink 1.05s steps(1, end) infinite;
+}
+@keyframes tf-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.tf-caret[data-style='block'][data-blink='true'] {
+  animation-name: tf-blink-soft;
+}
+@keyframes tf-blink-soft {
+  0%,
+  45% {
+    opacity: 0.38;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.tf-lines {
+  transition: transform 160ms ease;
+}
+
+.tf-fade-in {
+  animation: tf-fade 220ms ease both;
+}
+@keyframes tf-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------- dialogs */
+
+dialog.tf-dialog {
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--tf-line);
+  border-radius: 16px;
+  background: var(--tf-surface);
+  color: var(--tf-text);
+  width: min(560px, calc(100vw - 32px));
+  max-height: min(86dvh, 760px);
+  box-shadow: 0 24px 64px -16px rgb(0 0 0 / 0.45);
+}
+dialog.tf-dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+  backdrop-filter: blur(2px);
+}
+dialog.tf-dialog[open] {
+  animation: tf-fade 180ms ease both;
+}
+
+input[type='range'].tf-range {
+  accent-color: var(--tf-accent);
+  width: 100%;
+}
+
+/* ------------------------------------------------------- reduced motion */
+
+html[data-motion='reduce'] *,
+html[data-motion='reduce'] *::before,
+html[data-motion='reduce'] *::after,
+html[data-motion='reduce'] dialog::backdrop {
+  animation-duration: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0s !important;
+  scroll-behavior: auto !important;
+}
+html[data-motion='reduce'] .tf-caret[data-blink='true'] {
+  animation: none !important;
+}
+
+/* Fade out navigation and options while typing (they return on mouse move). */
+.tf-chrome {
+  transition: opacity 250ms ease;
+}
+html[data-typing='true'] .tf-chrome {
+  opacity: 0;
+  pointer-events: none;
+}
+html[data-typing='true'] body {
+  cursor: none;
+}
