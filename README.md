@@ -12,7 +12,7 @@ A fast, private, distraction-free typing practice app. No ads, no trackers, no s
   - **Time**: 15, 30, 60 or 120 seconds. The clock starts on your first keystroke and the test ends exactly on time.
   - **Words**: 10, 25, 50 or 100 words.
   - **Quote**: short, medium and long passages (original or public-domain text).
-  - **Code**: short Python, JavaScript and TypeScript snippets. Press Enter for a new line and the indentation fills in for you.
+  - **Code**: 144 original snippets (53 Python, 47 JavaScript, 44 TypeScript) covering algorithms, classes, async code, generics, DOM and more. You see every snippet in a language once before any repeats, and the rotation is remembered between visits. Press Enter for a new line and the indentation fills in for you (typing it anyway is fine).
   - **Custom**: paste your own essay, interview answers or technical terms (up to 5,000 characters).
 - **Word options**: punctuation, numbers, and easy / medium / hard word lists.
 - **Accurate statistics**: WPM, raw WPM, accuracy, consistency, correct / incorrect / extra / missed characters, and a WPM-over-time chart. Every formula is documented and unit tested.
@@ -108,6 +108,7 @@ src/
 │   ├── history.ts          # history store, validation, import/export, limits
 │   ├── aggregate.ts        # summary stats, streaks, activity grid
 │   ├── settings.ts         # defaults + sanitizing persisted settings
+│   ├── rotation.ts         # no-repeat "shuffle bag" for code snippets and quotes
 │   └── customText.ts, storage.ts, sound.ts, random.ts, result.ts, format.ts
 ├── data/                   # word lists, quotes, code snippets
 ├── styles/                 # Tailwind entry + theme variables
@@ -157,7 +158,7 @@ TypeFlow is built to stay light. These numbers come from the Playwright run (`np
 | JS heap after load | ~2.0 MB used |
 | JS heap after several tests and the stats page | ~4.5 MB used |
 | 30 restart cycles | no event-listener growth; heap +0.2 MB |
-| Transfer size on first load | ~99 KB (gzip); 0 requests to other origins |
+| Transfer size on first load | ~110 KB (gzip, including the full snippet library); 0 requests to other origins |
 
 Design choices that keep it fast:
 

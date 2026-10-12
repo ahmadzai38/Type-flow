@@ -2,7 +2,8 @@ import { CODE_SNIPPETS } from '../data/code';
 import { QUOTES } from '../data/quotes';
 import type { Passage, TestConfig } from '../types';
 import { validateCustomText } from './customText';
-import { createRng, randomSeed, type Rng } from './random';
+import { createRng, randomSeed } from './random';
+import { rotation } from './rotation';
 import { createWordGenerator } from './textGenerator';
 
 /** Words generated up front in time mode; more are appended while typing. */
@@ -13,16 +14,6 @@ let keyCounter = 0;
 const nextKey = () => ++keyCounter;
 
 const DEFAULT_CUSTOM = 'Type anything you like here. Paste an essay, interview answers, or technical notes to practice them.';
-
-function pickIndex(rng: Rng, length: number, avoid: number): number {
-  if (length <= 1) return 0;
-  let i = Math.floor(rng() * length);
-  if (i === avoid) i = (i + 1) % length;
-  return i;
-}
-
-let lastQuote = -1;
-let lastSnippet = -1;
 
 export function createPassage(config: TestConfig, seed: number = randomSeed()): Passage {
   const rng = createRng(seed);
@@ -43,8 +34,7 @@ export function createPassage(config: TestConfig, seed: number = randomSeed()): 
     }
     case 'quote': {
       const list = QUOTES[config.quoteLength];
-      lastQuote = pickIndex(rng, list.length, lastQuote);
-      const quote = list[lastQuote];
+      const quote = list[rotation.next(`quote:${config.quoteLength}`, list.length, rng)];
       return { ...base, text: quote.text, source: quote.source };
     }
     case 'custom': {
@@ -53,9 +43,16 @@ export function createPassage(config: TestConfig, seed: number = randomSeed()): 
     }
     case 'code': {
       const list = CODE_SNIPPETS[config.codeLanguage];
-      lastSnippet = pickIndex(rng, list.length, lastSnippet);
-      const snippet = list[lastSnippet];
-      return { ...base, text: snippet.code, source: snippet.title, wordSkip: false, autoIndent: true };
+      const id = `code:${config.codeLanguage}`;
+      const snippet = list[rotation.next(id, list.length, rng)];
+      const pos = rotation.position(id);
+      return {
+        ...base,
+        text: snippet.code,
+        source: pos ? `${snippet.title} · ${pos.shown} of ${pos.total}` : snippet.title,
+        wordSkip: false,
+        autoIndent: true,
+      };
     }
   }
 }

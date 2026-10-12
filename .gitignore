@@ -8,3 +8,5 @@ coverage
 .idea
 *.log
 perf-report.json
+
+.vercel

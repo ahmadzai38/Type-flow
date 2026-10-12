@@ -158,6 +158,10 @@ describe('code mode', () => {
   it('Enter types a newline and indentation is auto-filled', async () => {
     const user = userEvent.setup();
     const { passage } = setup({ mode: 'code', codeLanguage: 'python' });
+    // Some snippets have no indented lines; restart until one does.
+    for (let i = 0; i < 60 && !passage().includes('\n '); i++) {
+      await user.click(screen.getByRole('button', { name: /restart with a new passage/i }));
+    }
     const text = passage();
     const upto = text.indexOf('\n ');
     expect(upto).toBeGreaterThan(0);

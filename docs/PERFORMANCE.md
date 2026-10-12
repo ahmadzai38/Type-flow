@@ -29,7 +29,7 @@ Environment: Chromium 141.0.7390.37 (headless), Linux container, 1366×820 viewp
 | Metric | Value |
 | --- | --- |
 | DOMContentLoaded | 86 ms (local server) |
-| Transferred on first load | 99 KB |
+| Transferred on first load | 110 KB (after the code library grew to 144 snippets) |
 | Requests to other origins | 0 |
 | Console errors during the whole run | 0 |
 
@@ -58,7 +58,7 @@ These numbers are the JavaScript heap only. The browser tab's total memory (rend
 
 | File | Size |
 | --- | --- |
-| Main JS (React + app) | ~93.5 KB |
+| Main JS (React + app + 144 code snippets) | ~105.5 KB |
 | CSS | ~7.0 KB |
 | Statistics page (lazy) | ~3.6 KB |
 | Settings dialog (lazy) | ~2.0 KB |
