@@ -1,5 +1,7 @@
 # TypeFlow
 
+[**Try TypeFlow live →**](https://typeflow-mytype.vercel.app)
+
 A fast, private, distraction-free typing practice app. No ads, no trackers, no sign-up. Everything runs in your browser and your data stays on your device.
 
 ![TypeFlow typing test (Midnight Dark theme)](docs/screenshots/test-midnight.png)
